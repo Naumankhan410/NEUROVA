@@ -5,14 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEUROVA GPT — Your AI Chat Assistant</title>
 
-  <!-- SEO -->
-  <meta name="description" content="NEUROVA GPT — A custom GPT-4 Turbo chatbot, smart, fast, and evolving daily. Chat like ChatGPT with your own assistant.">
-  <meta property="og:title" content="NEUROVA GPT — Chat Like ChatGPT">
-  <meta property="og:description" content="A smart GPT-4 Turbo powered chatbot, evolving with every conversation. Try NEUROVA GPT now.">
-  <meta property="og:image" content="https://i.postimg.cc/K8qVwmFz/neurova-preview.jpg">
-  <meta property="og:url" content="https://naumankhan410.github.io/nexora">
-  <meta property="og:type" content="website">
-
   <style>
     html, body {
       margin: 0;
@@ -29,21 +21,22 @@
       animation: gradientBG 12s ease infinite;
       position: relative;
     }
+
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Luxury Background Image overlay */
-    body::before {
-      content: "";
+    /* Background image div */
+    #background-image {
       position: absolute;
       top: 0; left: 0;
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       background: url('https://i.postimg.cc/0y4yQ4Fq/luxury-bg.jpg') no-repeat center center;
       background-size: cover;
-      opacity: 0.25; /* soft overlay for luxury look */
+      opacity: 0.25;
       z-index: 0;
       animation: subtleZoom 20s ease-in-out infinite alternate;
     }
@@ -68,7 +61,6 @@
       z-index: 9999;
     }
 
-    /* Spinner animation */
     .spinner {
       border: 6px solid rgba(255, 255, 255, 0.2);
       border-top: 6px solid #00ffcc;
@@ -78,6 +70,7 @@
       animation: spin 1s linear infinite;
       margin-bottom: 15px;
     }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -90,11 +83,14 @@
       width: 100%;
       height: 100%;
       background: transparent;
-      z-index: 1; /* above background image */
+      z-index: 1;
     }
   </style>
 </head>
 <body>
+
+  <!-- Background Image -->
+  <div id="background-image"></div>
 
   <!-- Loading Screen -->
   <div id="loader">

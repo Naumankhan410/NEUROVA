@@ -13,7 +13,7 @@
   <meta property="og:title" content="NEUROVA GPT — Chat Like ChatGPT">
   <meta property="og:description" content="A smart GPT-4 Turbo powered chatbot, evolving with every conversation. Try NEUROVA GPT now.">
   <meta property="og:image" content="https://i.postimg.cc/K8qVwmFz/neurova-preview.jpg">
-  <meta property="og:url" content="https://naumankhan410.github.io/nexora">
+  <meta property="og:url" content="https://naumankhan410.github.io/NEXORA">
   <meta property="og:type" content="website">
 
   <!-- Twitter Card -->
@@ -73,7 +73,6 @@
       transition: opacity 0.5s ease;
     }
 
-    /* Optional: smoother fade-out for loader */
     #loader.hidden {
       opacity: 0;
       pointer-events: none;
@@ -94,8 +93,16 @@
   <div id="loader">🚀 Loading NEUROVA GPT...</div>
   <div id="overlay"></div>
 
-  <iframe src="https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R" 
+  <iframe id="chatframe" 
           onload="document.getElementById('loader').classList.add('hidden');">
   </iframe>
+
+  <script>
+    // Automatically append a random query string to bypass cache
+    const iframe = document.getElementById('chatframe');
+    const baseURL = "https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R";
+    const randomParam = Math.floor(Math.random() * 1000000); // random number
+    iframe.src = `${baseURL}?v=${randomParam}`;
+  </script>
 </body>
 </html>

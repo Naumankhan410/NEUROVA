@@ -1,67 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEUROVA GPT — Your AI Chat Assistant</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEUROVA GPT — Your AI Chat Assistant</title>
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: url('https://i.postimg.cc/3JY8rWx3/neurova-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
-  overflow: hidden;
-}
+  <!-- SEO Meta -->
+  <meta name="description" content="NEUROVA GPT — A GPT-4 Turbo powered chatbot. Smart, fast, and evolving daily with AI training." />
+  <meta name="keywords" content="NEUROVA GPT, AI chatbot, GPT-4 Turbo, OpenAI, AI assistant, ChatGPT alternative" />
 
-iframe {
-  width: 100%;
-  height: 100vh;
-  border: none;
-}
+  <!-- Open Graph / WhatsApp / Social Preview -->
+  <meta property="og:title" content="NEUROVA GPT — Chat Like ChatGPT" />
+  <meta property="og:description" content="A smart GPT-4 Turbo chatbot, evolving with every conversation. Try NEUROVA GPT now." />
+  <meta property="og:image" content="https://your-image-link.com/neurova-preview.jpg" />
+  <meta property="og:url" content="https://naumankhan410.github.io/nexora" />
+  <meta property="og:type" content="website" />
 
-#loader {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5em;
-  z-index: 9999;
-  transition: opacity 0.5s ease;
-}
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NEUROVA GPT — Chat Like ChatGPT" />
+  <meta name="twitter:description" content="Smart, fast, and evolving GPT-4 Turbo chatbot. Try it now." />
+  <meta name="twitter:image" content="https://your-image-link.com/neurova-preview.jpg" />
 
-#loader.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-#bottom-text {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-size: 1em;
-  z-index: 2;
-}
-</style>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0e0e0e;
+      font-family: Arial, sans-serif;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100vh;
+    }
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #0e0e0e;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      z-index: 9999;
+    }
+  </style>
 </head>
 <body>
+  <div id="loader">🚀 Loading NEUROVA GPT...</div>
 
-<div id="loader">🚀 Loading NEUROVA GPT...</div>
-<iframe id="chatframe" onload="document.getElementById('loader').classList.add('hidden');"></iframe>
-<div id="bottom-text">© 2025 NEUROVA GPT by Nauman A Khan</div>
-
-<script>
-const iframe = document.getElementById('chatframe');
-const baseURL = "https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R";
-iframe.src = `${baseURL}?v=${Math.floor(Math.random()*1000000)}`;
-</script>
-
+  <iframe src="https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R" 
+    onload="document.getElementById('loader').style.display='none';"></iframe>
 </body>
 </html>

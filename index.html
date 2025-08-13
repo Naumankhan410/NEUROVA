@@ -1,188 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NEXORA AI AGENT</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-  
-  body {
-    margin: 0; 
-    font-family: 'Inter', sans-serif;
-    background: #f0f3f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .chat-container {
-    width: 360px;
-    max-width: 100%;
-    background: #1a1a1a;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgb(0 0 0 / 0.2);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .header {
-    padding: 12px 16px;
-    background: #111;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .header img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-  }
-  .header-title {
-    color: #ddd;
-    font-weight: 600;
-    font-size: 18px;
-    user-select: none;
-  }
-  .messages {
-    flex: 1;
-    padding: 12px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .message {
-    max-width: 75%;
-    padding: 10px 14px;
-    border-radius: 20px;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-  .message.user {
-    align-self: flex-end;
-    background: #5c55f9;
-    color: white;
-    border-bottom-right-radius: 4px;
-  }
-  .message.bot {
-    align-self: flex-start;
-    background: #222;
-    color: #ccc;
-    border-bottom-left-radius: 4px;
-  }
-  .message.bot strong {
-    color: #eee;
-  }
-  .input-area {
-    display: flex;
-    padding: 12px 16px;
-    background: #111;
-    gap: 8px;
-  }
-  .input-area input {
-    flex-grow: 1;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 16px;
-    font-size: 14px;
-    outline: none;
-    background: #222;
-    color: #eee;
-  }
-  .input-area button {
-    background: #5c55f9;
-    border: none;
-    color: white;
-    padding: 0 16px;
-    font-size: 16px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .input-area button:hover {
-    background: #423bde;
-  }
-  /* Scrollbar styling */
-  .messages::-webkit-scrollbar {
-    width: 6px;
-  }
-  .messages::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .messages::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 3px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEUROVA GPT — Your AI Chat Assistant</title>
+
+  <!-- SEO -->
+  <meta name="description" content="NEUROVA GPT — A smart, fast GPT-4 Turbo chatbot that evolves with every conversation. Chat like ChatGPT, anytime.">
+  <meta name="keywords" content="NEUROVA GPT, GPT-4 Turbo, AI chatbot, OpenAI, ChatGPT alternative, Nexora GPT">
+
+  <!-- Open Graph / WhatsApp / Facebook Preview -->
+  <meta property="og:title" content="NEUROVA GPT — Chat Like ChatGPT">
+  <meta property="og:description" content="A GPT-4 Turbo powered chatbot — smart, fast, and evolving daily. Try NEUROVA GPT now.">
+  <meta property="og:image" content="https://i.postimg.cc/K8qVwmFz/neurova-preview.jpg">
+  <meta property="og:url" content="https://naumankhan410.github.io/nexora">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NEUROVA GPT — Chat Like ChatGPT">
+  <meta name="twitter:description" content="Smart, fast, and evolving GPT-4 Turbo chatbot. Try it now.">
+  <meta name="twitter:image" content="https://i.postimg.cc/K8qVwmFz/neurova-preview.jpg">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0e0e0e;
+      font-family: Arial, sans-serif;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100vh;
+    }
+
+    /* Loading Screen */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #0e0e0e;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      z-index: 9999;
+    }
+  </style>
 </head>
 <body>
+  <div id="loader">🚀 Loading NEUROVA GPT...</div>
 
-<div class="chat-container" role="region" aria-label="Chat with Nexora AI Agent">
-  <div class="header">
-    <img src="https://naumankhan410.github.io/nexora/NEXORA_Logo.png" alt="Nexora Logo" />
-    <div class="header-title">NEXORA AI AGENT</div>
-  </div>
-
-  <div class="messages" id="messages" aria-live="polite" aria-relevant="additions">
-    <div class="message user">Can I upload without signing in?</div>
-    <div class="message bot">
-      No, signing in with a Google account is mandatory because the Nexora YouTube Uploader app uses OAuth 2.0 authentication to securely upload videos to your YouTube channel. If you have any other questions or need assistance, feel free to ask!
-    </div>
-    <div class="message user">About developer</div>
-    <div class="message bot">
-      The Nexora YouTube Automation app was developed by Nauman Khan. He is a student, engineer, AI enthusiast,
-    </div>
-  </div>
-
-  <form id="chatForm" class="input-area" aria-label="Send message form">
-    <input
-      type="text"
-      id="chatInput"
-      placeholder="Please enter the full path to your video file here] [Type your custom comment for the video (option"
-      aria-label="Type your message"
-      autocomplete="off"
-      required
-    />
-    <button type="submit" aria-label="Send message">
-      &#10148;
-    </button>
-  </form>
-</div>
-
-<script>
-  const form = document.getElementById('chatForm');
-  const input = document.getElementById('chatInput');
-  const messages = document.getElementById('messages');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const text = input.value.trim();
-    if (!text) return;
-
-    // Add user message
-    const userMsg = document.createElement('div');
-    userMsg.className = 'message user';
-    userMsg.textContent = text;
-    messages.appendChild(userMsg);
-
-    // Scroll to bottom
-    messages.scrollTop = messages.scrollHeight;
-
-    input.value = '';
-
-    // Simulated bot response after 1s (you can customize this)
-    setTimeout(() => {
-      const botMsg = document.createElement('div');
-      botMsg.className = 'message bot';
-      botMsg.textContent = "Sorry, I am a demo bot and cannot process uploads yet.";
-      messages.appendChild(botMsg);
-      messages.scrollTop = messages.scrollHeight;
-    }, 1000);
-  });
-</script>
-
+  <!-- Chatbot -->
+  <iframe src="https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R"
+          onload="document.getElementById('loader').style.display='none';">
+  </iframe>
 </body>
-  </html>
+</html>

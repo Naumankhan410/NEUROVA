@@ -27,11 +27,30 @@
       background: linear-gradient(-45deg, #0f0f0f, #1a1a40, #16213e, #0d7377);
       background-size: 400% 400%;
       animation: gradientBG 12s ease infinite;
+      position: relative;
     }
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    /* Luxury Background Image overlay */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1609943539638-1e4b6b0a2e6d?auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+      background-size: cover;
+      opacity: 0.25; /* soft overlay for luxury look */
+      z-index: 0;
+      animation: subtleZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes subtleZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
     }
 
     /* Loading Screen */
@@ -66,10 +85,12 @@
 
     /* Chatbot iframe */
     iframe {
+      position: relative;
       border: none;
       width: 100%;
       height: 100%;
       background: transparent;
+      z-index: 1; /* above background image */
     }
   </style>
 </head>

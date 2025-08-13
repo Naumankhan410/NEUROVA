@@ -1,205 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEUROVA GPT — Your AI Chat Assistant</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEUROVA GPT — Your AI Chat Assistant</title>
 
-  <!-- SEO Meta -->
-  <meta name="description" content="NEUROVA GPT — A custom GPT-4 Turbo chatbot, smart, fast, and evolving daily. Chat like ChatGPT with your own assistant.">
-  <meta name="keywords" content="NEUROVA GPT, AI chatbot, GPT-4 Turbo, OpenAI, AI assistant, ChatGPT alternative">
+<style>
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="NEUROVA GPT — Chat Like ChatGPT">
-  <meta property="og:description" content="A smart GPT-4 Turbo powered chatbot, evolving with every conversation. Try NEUROVA GPT now.">
-  <meta property="og:image" content="https://i.postimg.cc/K8qVwmFz/neurova-preview.jpg">
-  <meta property="og:url" content="https://naumankhan410.github.io/NEXORA">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NEUROVA GPT — Chat Like ChatGPT">
-  <meta name="twitter:description" content="Smart, fast, and evolving GPT-4 Turbo chatbot. Try it now.">
-  <meta name="twitter:image" content="https://i.postimg.cc/K8qVwmFz/neurova-preview.jpg">
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  /* Background embedded in Base64 */
+  background: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD/2wCEAAkGBxISEhUTEhIVFhUVFRUVFRUVFRUVFRUVFRUXFhUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGhAQGy0lICUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAKABKwMBIgACEQEDEQH/xAAcAAACAgMBAQAAAAAAAAAAAAAFBgMEAAIHAQj/xAA9EAACAQIEAwUGBAUDBQAAAAABAgADEQQSITEFQVEGImFxgZETMqGxQlKx0RQjYnLh8RVTgpLxFv/EABkBAAMBAQEAAAAAAAAAAAAAAAIDBAEABf/EACQRAAICAgICAgMAAAAAAAAAAAABAhEDEiExBBNBUSJx/9oADAMBAAIRAxEAPwD3iIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgP/2Q==') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
 
-  <style>
-    /* Gradient animation */
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(-45deg, rgba(31,28,44,0.3), rgba(146,141,171,0.3), rgba(44,44,84,0.3), rgba(255,154,158,0.3));
+  background-size: 400% 400%;
+  animation: gradientAnimation 20s ease infinite;
+  z-index: 0;
+}
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('https://i.postimg.cc/8z6M2Kp1/your-background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-      overflow: hidden;
-    }
+#particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
 
-    /* Animated gradient overlay */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(-45deg, rgba(31,28,44,0.3), rgba(146,141,171,0.3), rgba(44,44,84,0.3), rgba(255,154,158,0.3));
-      background-size: 400% 400%;
-      animation: gradientAnimation 20s ease infinite;
-      z-index: 0;
-    }
+#overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
 
-    /* Particle canvas */
-    #particles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
+iframe {
+  width: 100%;
+  height: 100vh;
+  border: none;
+  position: relative;
+  z-index: 2;
+}
 
-    /* Overlay for contrast */
-    #overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 1;
-    }
+#loader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
 
-    iframe {
-      width: 100%;
-      height: 100dvh; /* Mobile safe viewport */
-      border: none;
-      position: relative;
-      z-index: 2;
-    }
+#loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 
-    /* Loader */
-    #loader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5em;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-
-    #loader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* Mobile adjustments */
-    @media (max-width: 768px) {
-      body::before {
-        animation: gradientAnimation 30s ease infinite;
-      }
-      #loader {
-        font-size: 1.2em;
-      }
-    }
-  </style>
+@media (max-width: 768px) {
+  body::before { animation: gradientAnimation 30s ease infinite; }
+  #loader { font-size: 1.2em; }
+}
+</style>
 </head>
 <body>
-  <div id="loader">🚀 Loading NEUROVA GPT...</div>
-  <div id="overlay"></div>
-  <canvas id="particles"></canvas>
-  <iframe id="chatframe" onload="document.getElementById('loader').classList.add('hidden');"></iframe>
+<div id="loader">🚀 Loading NEUROVA GPT...</div>
+<div id="overlay"></div>
+<canvas id="particles"></canvas>
+<iframe id="chatframe" onload="document.getElementById('loader').classList.add('hidden');"></iframe>
 
-  <script>
-    // Cache-bypass random query string
-    const iframe = document.getElementById('chatframe');
-    const baseURL = "https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R";
-    const randomParam = Math.floor(Math.random() * 1000000);
-    iframe.src = `${baseURL}?v=${randomParam}`;
+<script>
+const iframe = document.getElementById('chatframe');
+const baseURL = "https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R";
+iframe.src = `${baseURL}?v=${Math.floor(Math.random()*1000000)}`;
 
-    // Particles effect
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let particlesArray = [];
-    const colors = ['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.15)', 'rgba(255,255,255,0.1)'];
-    let mouse = { x: null, y: null };
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particlesArray = [];
+const colors = ['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.15)', 'rgba(255,255,255,0.1)'];
+let mouse = { x: null, y: null };
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+window.addEventListener('touchmove', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() - 0.5) * 0.5;
+    this.speedY = (Math.random() - 0.5) * 0.5;
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x < 0) this.x = canvas.width;
+    if(this.x > canvas.width) this.x = 0;
+    if(this.y < 0) this.y = canvas.height;
+    if(this.y > canvas.height) this.y = 0;
+    if(mouse.x && mouse.y) {
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 100) { this.x -= dx*0.001; this.y -= dy*0.001; }
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
 
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-    });
+function initParticles(num = 80) { particlesArray = []; for(let i=0;i<num;i++) particlesArray.push(new Particle()); }
+function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animateParticles); }
 
-    window.addEventListener('touchmove', (e) => {
-      mouse.x = e.touches[0].clientX;
-      mouse.y = e.touches[0].clientY;
-    });
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        // Wrap around edges
-        if(this.x < 0) this.x = canvas.width;
-        if(this.x > canvas.width) this.x = 0;
-        if(this.y < 0) this.y = canvas.height;
-        if(this.y > canvas.height) this.y = 0;
-
-        // Slight movement toward cursor/touch
-        if(mouse.x && mouse.y) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          if(dist < 100) {
-            this.x -= dx * 0.001;
-            this.y -= dy * 0.001;
-          }
-        }
-      }
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles(num = 80) {
-      particlesArray = [];
-      for(let i = 0; i < num; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-  </script>
+initParticles();
+animateParticles();
+</script>
 </body>
 </html>

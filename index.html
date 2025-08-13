@@ -1,203 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NEUROVA GPT — Your AI Chat Assistant</title>
 
-  <!-- SEO and styles omitted for brevity, assume same as previous premium UI -->
-
   <style>
-    /* ... keep previous styles exactly as before, including fonts, background, particles, nav bar, loader, iframe container, FAB, scrollbar, etc ... */
+    /* Reset */
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: Arial, sans-serif;
+      background: url('https://i.postimg.cc/K8qVwmFz/neurova-preview.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+      color: #fff;
+    }
 
-    /* For brevity, only add below the sounds toggle button styles here */
-
-    #sound-toggle {
+    /* Loading Screen */
+    #loader {
       position: fixed;
-      bottom: 100px;
-      right: 30px;
-      width: 48px;
-      height: 48px;
-      background: rgba(212,175,55,0.85);
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      font-size: 1.5em;
+      z-index: 9999;
+      color: #00ffcc;
+    }
+    .spinner {
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid #00ffcc;
       border-radius: 50%;
-      box-shadow:
-        0 0 12px #ffd700,
-        0 0 20px #ffd700;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.6rem;
-      color: #0a0a23;
-      cursor: pointer;
+      width: 60px; height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Chatbot iframe fullscreen */
+    iframe {
+      border: none;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    /* Title bar overlay */
+    #title-bar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      height: 60px;
+      background: rgba(0,0,0,0.7);
+      color: #00ffcc;
+      font-size: 1.5em;
+      line-height: 60px;
+      text-align: center;
+      font-weight: bold;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      z-index: 10000;
       user-select: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      z-index: 10002;
-      filter: drop-shadow(0 0 6px #d4af37);
     }
-    #sound-toggle:hover {
-      background: #ffd700;
-      box-shadow:
-        0 0 30px #fffacd,
-        0 0 40px #fffacd,
-        0 0 50px #ffd700;
-    }
+
   </style>
 </head>
 <body>
 
-  <!-- Animated Background, Particles, Title Bar, Loader, Iframe Container, FAB -->
-  <!-- Use the same markup as previous answer for these -->
+  <div id="title-bar">✨ NEUROVA GPT 🤖</div>
 
-  <div id="animated-bg"></div>
-  <div id="particles"></div>
-  <div id="title-bar">
-    ✨ NEUROVA GPT 🤖
-    <div id="info-icon" tabindex="0" aria-label="Information about NEUROVA GPT" role="button">
-      ℹ️
-      <div class="tooltip">Your premium AI assistant — powered by GPT-4 Turbo</div>
-    </div>
-  </div>
   <div id="loader">
     <div class="spinner"></div>
-    🚀 Preparing your premium AI assistant...
-  </div>
-  <div id="iframe-container" role="main" aria-label="NEUROVA GPT chat interface">
-    <iframe
-      src="https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R"
-      title="NEUROVA GPT Chatbot"
-      onload="onIframeLoad()"
-      allow="microphone; camera"
-      tabindex="0"
-    ></iframe>
-  </div>
-  <div id="fab" aria-label="Reload chatbot" role="button" tabindex="0" title="Reload Chatbot">
-    🔄
+    🚀 Loading NEUROVA GPT...
   </div>
 
-  <!-- Sound toggle button -->
-  <div id="sound-toggle" aria-label="Toggle sound effects" role="button" tabindex="0" title="Toggle sound effects">
-    🔈
-  </div>
-
-  <!-- Audio elements -->
-  <audio id="sound-loading-start" src="https://assets.codepen.io/3/soothing-chime.mp3" preload="auto"></audio>
-  <audio id="sound-loading-end" src="https://assets.codepen.io/3/soft-bell.mp3" preload="auto"></audio>
-  <audio id="sound-button-click" src="https://assets.codepen.io/3/button-click.mp3" preload="auto"></audio>
-  <audio id="sound-hover" src="https://assets.codepen.io/3/soft-hover.mp3" preload="auto"></audio>
-  <audio id="sound-iframe-focus" src="https://assets.codepen.io/3/soft-whoosh.mp3" preload="auto"></audio>
-  <audio id="sound-ambient" src="https://assets.codepen.io/3/ambient-low.mp3" preload="auto" loop></audio>
-
-<script>
-  // Same particle generation and iframe loading code as before...
-  const particleCount = 40;
-  const particlesContainer = document.getElementById('particles');
-  for(let i=0; i<particleCount; i++) {
-    const p = document.createElement('div');
-    p.classList.add('particle');
-    const size = Math.random() * 6 + 4;
-    p.style.width = size + 'px';
-    p.style.height = size + 'px';
-    p.style.left = (Math.random() * 100) + 'vw';
-    p.style.animationDuration = (10 + Math.random() * 10) + 's';
-    p.style.animationDelay = (Math.random() * 15) + 's';
-    particlesContainer.appendChild(p);
-  }
-
-  // Sound control state
-  let soundEnabled = true;
-
-  // Audio elements
-  const audioLoadingStart = document.getElementById('sound-loading-start');
-  const audioLoadingEnd = document.getElementById('sound-loading-end');
-  const audioButtonClick = document.getElementById('sound-button-click');
-  const audioHover = document.getElementById('sound-hover');
-  const audioIframeFocus = document.getElementById('sound-iframe-focus');
-  const audioAmbient = document.getElementById('sound-ambient');
-
-  // Start ambient sound quietly
-  audioAmbient.volume = 0.15;
-  audioAmbient.play();
-
-  // Play loading start sound
-  if(soundEnabled) audioLoadingStart.play();
-
-  function onIframeLoad() {
-    const loader = document.getElementById('loader');
-    const iframeContainer = document.getElementById('iframe-container');
-    if(soundEnabled) audioLoadingEnd.play();
-    loader.style.opacity = 0;
-    setTimeout(() => {
-      loader.style.display = 'none';
-      iframeContainer.classList.add('loaded');
-    }, 1000);
-  }
-
-  // Floating Action Button reload
-  const fab = document.getElementById('fab');
-  fab.addEventListener('click', () => {
-    if(soundEnabled) audioButtonClick.play();
-    const iframe = document.querySelector('iframe');
-    const loader = document.getElementById('loader');
-    const iframeContainer = document.getElementById('iframe-container');
-
-    loader.style.display = 'flex';
-    loader.style.opacity = 1;
-    iframeContainer.classList.remove('loaded');
-    iframe.src = iframe.src;
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  });
-  fab.addEventListener('keydown', e => {
-    if(e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      fab.click();
-    }
-  });
-
-  // Info icon hover & keyboard play sound
-  const infoIcon = document.getElementById('info-icon');
-  infoIcon.addEventListener('mouseenter', () => {
-    if(soundEnabled) audioHover.play();
-  });
-  infoIcon.addEventListener('focus', () => {
-    if(soundEnabled) audioHover.play();
-  });
-  infoIcon.addEventListener('click', () => {
-    alert('NEUROVA GPT is your premium AI assistant powered by GPT-4 Turbo, evolving daily.');
-  });
-  infoIcon.addEventListener('keydown', e => {
-    if(e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      infoIcon.click();
-    }
-  });
-
-  // Play sound when iframe gets focus
-  const iframe = document.querySelector('iframe');
-  iframe.addEventListener('focus', () => {
-    if(soundEnabled) audioIframeFocus.play();
-  });
-
-  // Sound toggle button
-  const soundToggle = document.getElementById('sound-toggle');
-  soundToggle.addEventListener('click', toggleSound);
-  soundToggle.addEventListener('keydown', e => {
-    if(e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleSound();
-    }
-  });
-
-  function toggleSound() {
-    soundEnabled = !soundEnabled;
-    if(soundEnabled) {
-      soundToggle.textContent = '🔈';
-      audioAmbient.play();
-    } else {
-      soundToggle.textContent = '🔇';
-      audioAmbient.pause();
-    }
-  }
-</script>
+  <iframe 
+    src="https://www.chatbase.co/chatbot-iframe/nssPWO5sj8XNf0Ha1e53R"
+    onload="document.getElementById('loader').style.display='none';"
+    title="NEUROVA GPT Chatbot"
+  ></iframe>
 
 </body>
 </html>
